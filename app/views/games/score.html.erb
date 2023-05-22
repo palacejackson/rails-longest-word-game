@@ -1,0 +1,15 @@
+
+<% if @word.all? { |letter| @letters.include?(letter) } %>
+
+  <% response = URI.open("https://wagon-dictionary.herokuapp.com/#{params[:word]}") %>
+  <% @json = JSON.parse(response.read) %>
+
+    <%if @json['found'] %>
+      <%= "Congrats!" %>
+    <%else%>
+      <%= "#{params[:word]} is not a valid word" %>
+    <%end%>
+
+  <%else%>
+    <%="#{params[:word]} is not included in #{params[:letters]}"%>
+<%end%>
